@@ -46,4 +46,25 @@ typedef enum {
     }
 }
 
+// Validate the input string with the given pattern and
+// return the result as a boolean
++ (int)validateString:(NSString *)string withPattern:(NSString *)pattern caseSensitive:(BOOL)caseSensitive
+{
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:((caseSensitive) ? 0 : NSRegularExpressionCaseInsensitive) error:&error];
+
+    NSAssert(regex, @"Unable to create regular expression");
+
+    NSRange textRange = NSMakeRange(0, string.length);
+    NSRange matchRange = [regex rangeOfFirstMatchInString:string options:NSMatchingReportProgress range:textRange];
+
+    BOOL didValidate = 0;
+
+    // Did we find a matching range
+    if (matchRange.location != NSNotFound)
+        didValidate = 1;
+
+    return didValidate;
+}
+
 @end
