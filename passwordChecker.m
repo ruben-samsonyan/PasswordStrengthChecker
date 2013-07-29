@@ -3,13 +3,21 @@
 #define REGEX_PASSWORD_ONE_NUMBER @"^(?=.*[0-9]).*$"  //Should contains one or more number
 #define REGEX_PASSWORD_ONE_SYMBOL @"^(?=.*[!@#$%&_]).*$"  //Should contains one or more symbol
 
+@interface RegExUtils : NSObject
+
 typedef enum {
     PasswordStrengthTypeWeak,
     PasswordStrengthTypeModerate,
     PasswordStrengthTypeStrong
 }PasswordStrengthType;
 
- (PasswordStrengthType)checkPasswordStrength:(NSString *)password {
++ (PasswordStrengthType)checkPasswordStrength:(NSString *)password;
+
+@end
+
+@implementation RegExUtils
+
++(PasswordStrengthType)checkPasswordStrength:(NSString *)password {
     int len = password.length;
     //will contains password strength
     int strength = 0;
@@ -38,3 +46,4 @@ typedef enum {
     }
 }
 
+@end
